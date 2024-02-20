@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    /* CSS styles for the big box */
+    .big-box1 {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        text-align: center;
+        line-height: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        /* Change cursor to pointer to indicate clickable */
+        margin: 50px;
+        float: left;
+        /* Float the boxes to align them horizontally */
+    }
+
+    /* CSS styles for the big box */
+    .big-box2 {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        text-align: center;
+        line-height: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        margin: 50px;
+        float: left;
+        /* Float the boxes to align them horizontally */
+        /* Change cursor to pointer to indicate clickable */
+    }
+
+    /* CSS styles for the descriptions */
+    .description {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+
+    }
+
+    .big-box1 button {
+        width: 100%;
+        /* Make the button fill the entire width of the big box */
+        height: 100%;
+        /* Make the button fill the entire height of the big box */
+        background: none;
+        /* Remove background color */
+        border: none;
+        /* Remove border */
+        padding: 0;
+        /* Remove padding */
+        font-size: inherit;
+        /* Inherit font size from parent */
+        cursor: pointer;
+        /* Change cursor to pointer */
+    }
+
+    .big-box2 button {
+        width: 100%;
+        /* Make the button fill the entire width of the big box */
+        height: 100%;
+        /* Make the button fill the entire height of the big box */
+        background: none;
+        /* Remove background color */
+        border: none;
+        /* Remove border */
+        padding: 0;
+        /* Remove padding */
+        font-size: inherit;
+        /* Inherit font size from parent */
+        cursor: pointer;
+        /* Change cursor to pointer */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        /* Set the height of the container to fill the viewport */
+        margin-top: 20vh;
+        /* Add top margin to vertically center the container */
+    }
+
+    h1 {
+        font-size: 48px;
+        text-align: center;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Master</title>
+</head>
+
+<body>
+    <h1>Recipe Master</h1>
+    <div class="container">
+        <form action="recipefornow" method="GET">
+            <div class="big-box1">
+                <button type="submit">Recipe For Now</button>
+                <p class="description">Find a recipe with the ingredients you have on hand!</p>
+            </div>
+        </form>
+
+        <form action="recipeforlater" method="GET">
+            <div class="big-box2">
+                <button type="submit">Recipe For Later</button>
+                <p class="description">Find a recipe that will impress and instantly get list of ingredients!</p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
