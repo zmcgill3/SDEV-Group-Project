@@ -1,116 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    /* CSS styles for the big box */
-    .big-box1 {
-        width: 200px;
-        height: 200px;
-        background-color: lightblue;
-        text-align: center;
-        line-height: 20px;
-        font-size: 24px;
-        cursor: pointer;
-        /* Change cursor to pointer to indicate clickable */
-        margin: 50px;
-        float: left;
-        /* Float the boxes to align them horizontally */
-    }
-
-    /* CSS styles for the big box */
-    .big-box2 {
-        width: 200px;
-        height: 200px;
-        background-color: lightblue;
-        text-align: center;
-        line-height: 20px;
-        font-size: 24px;
-        cursor: pointer;
-        margin: 50px;
-        float: left;
-        /* Float the boxes to align them horizontally */
-        /* Change cursor to pointer to indicate clickable */
-    }
-
-    /* CSS styles for the descriptions */
-    .description {
-        text-align: center;
-        margin-top: 10px;
-        font-size: 14px;
-
-    }
-
-    .big-box1 button {
-        width: 100%;
-        /* Make the button fill the entire width of the big box */
-        height: 100%;
-        /* Make the button fill the entire height of the big box */
-        background: none;
-        /* Remove background color */
-        border: none;
-        /* Remove border */
-        padding: 0;
-        /* Remove padding */
-        font-size: inherit;
-        /* Inherit font size from parent */
-        cursor: pointer;
-        /* Change cursor to pointer */
-    }
-
-    .big-box2 button {
-        width: 100%;
-        /* Make the button fill the entire width of the big box */
-        height: 100%;
-        /* Make the button fill the entire height of the big box */
-        background: none;
-        /* Remove background color */
-        border: none;
-        /* Remove border */
-        padding: 0;
-        /* Remove padding */
-        font-size: inherit;
-        /* Inherit font size from parent */
-        cursor: pointer;
-        /* Change cursor to pointer */
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        height: 100vh;
-        /* Set the height of the container to fill the viewport */
-        margin-top: 20vh;
-        /* Add top margin to vertically center the container */
-    }
-
-    h1 {
-        font-size: 48px;
-        text-align: center;
-    }
-</style>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/templates/style/initial-style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.typekit.net/xrl7jpk.css" />
     <title>Recipe Master</title>
 </head>
 
 <body>
     <h1>Recipe Master</h1>
-    <div class="container">
+    
+    <!-- Image carousel-->
+    <section id= "image-carousel" class="carousel" arial-label="Recipe Images">
+        <div class="carousel-slider">
+            <ul class="carousel-list">
+                <li class="carousel-slide">
+                    <img src="img/img1.jpeg" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="img/img2.jpg" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="img/img3.jpg" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="img/img4.jpg" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="img/img5.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+        <div class="carousel-nav-buttons">
+            <span class="dot active" onclick="changeSlide(0)"></span>
+            <span class="dot" onclick="changeSlide(1)"></span>
+            <span class="dot" onclick="changeSlide(2)"></span>
+            <span class="dot" onclick="changeSlide(3)"></span>
+            <span class="dot" onclick="changeSlide(4)"></span>
+        </div>
+    </section>
+
+    <!-- Boxes-->
+    <div class="container ">
         <form action="recipefornow" method="GET">
-            <div class="big-box1">
-                <button type="submit">Recipe For Now</button>
-                <p class="description">Find a recipe with the ingredients you have on hand!</p>
+            <div class="boxes recipesNowBox toolTip">
+                <button type="submit">Last Minute Dinner Ideas</button>
+                <span class="toolTipText recipesNowText">Find a recipe with the ingredients you have on hand!</span>
             </div>
         </form>
 
         <form action="recipeforlater" method="GET">
-            <div class="big-box2">
+            <div class="boxes recipesLaterBox toolTip">
                 <button type="submit">Recipe For Later</button>
-                <p class="description">Find a recipe that will impress and instantly get list of ingredients!</p>
+                <span class="toolTipText recipesLaterText">Find a recipe that will impress and instantly get list of ingredients!</span>
+            </div>
+        </form>
+
+        <form action="#" method="GET">
+            <div class="boxes groceryAssistBox toolTip">
+                <button type="submit">Grocery Assistant</button>
+                <span class="toolTipText groceryAssistText">Create a grocery list and be recommended receipes that include the ingredients you're buying!</span>
             </div>
         </form>
     </div>
+    <script src="/templates/script/initial-script.js"></script>
 </body>
 
 </html>

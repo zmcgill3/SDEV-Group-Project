@@ -1,0 +1,145 @@
+/* colors */
+:root {
+--caribbeanCurrent: #156064;
+--oxfordBlue: #0E1C36;
+--jordyBlue: #AFCBFF;
+--lightCyan: #D7F9FF;
+--ivory: #F9FBF2;
+--linen: #FFEDE1;
+}
+
+body {
+    background-color: var(--linen);
+}
+
+/* carousel */
+.carousel-slider {
+    width: 100;
+    height: 510px;
+    position: relative;
+    
+}
+.carousel-slider img {
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.carousel-slider img:first-child {
+    z-index: 1;
+}
+.carousel-slider img:nth-child(4) {
+    z-index: 0;
+}
+
+/* carousel nav buttons */
+.carousel-nav-buttons {
+    text-align: center;
+    position: relative;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* CSS styles for the big box */
+.boxes {
+    width: 200px;
+    height: 200px;
+    background-color: var(--lightCyan);
+    border-radius: 25px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    /* Change cursor to pointer to indicate clickable */
+    margin: 50px;
+    float: left;
+    /* Float the boxes to align them horizontally */
+
+    /* Style text */
+    font-family: "urbana", "sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    color: var(--oxfordBlue);
+
+}
+
+
+.boxes button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    cursor: pointer;
+    color: inherit;
+}
+
+
+.container {
+    display: relative;
+    justify-content: center;
+    height: 100vh;
+    /* Set the height of the container to fill the viewport */
+    margin-top: 20vh;
+    /* Add top margin to vertically center the container */
+}
+
+h1 {
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Tooltip (hover descriptions) */
+
+.toolTip .toolTipText {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* position text */
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--oxfordBlue);
+    color: var(--ivory);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+
+    /* Style Text */
+    font-size: 10px;
+    font-family: "marigny", "sans-serif";
+    font-weight: 400;
+    font-style: normal;
+}
+
+.recipesNowBox:hover .recipesNowText {
+    visibility: visible;
+}
+
+.recipesLaterBox:hover .recipesLaterText {
+    visibility: visible;
+}
+
+.groceryAssistBox:hover .groceryAssistText {
+    visibility: visible;
+}
