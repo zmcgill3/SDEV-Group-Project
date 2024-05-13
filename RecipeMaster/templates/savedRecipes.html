@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/xrl7jpk.css">
+    <link rel="stylesheet" href="static/saved-recipes-style.css">
+    <title>Saved Recipes</title>
+    <style>
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <header>
+        <h1>Saved Recipes</h1>
+    </header>
+    <main>
+        {% if recipes %}
+            {% for recipe in recipes %}
+                <div class="recipe-container">
+                    <h2>{{ recipe.name }}</h2>
+                    <p><strong>Ingredients</strong></p>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Amounts</strong></p>
+                    <ul>
+                        {% for amount in recipe.amounts %}
+                            <li>{{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class = "{{ recipe.link }}"><a href="">Full Recipe Details</a></p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST" action="{% url 'clearSavedRecipes' %}">
+            {% csrf_token %}
+            <button type="submit" name="clear_recipes" class="btn">Clear Saved Recipes</button>
+        </form>
+    </main>
+</body>
+</html>

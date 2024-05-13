@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'head.html' %}
+    <style>
+          main{
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        }
+        .result{
+        margin: 1em;
+        padding: 1em;
+        background-color: #f9fbf2;
+        border: 1px solid #ccc;
+        border-radius: 0.5em;
+        box-sizing: border-box;
+        font-family: marigny, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #0E1C36;
+        }
+        .result a{
+        text-decoration: underline;
+        font-weight: bold;
+        color: grey;
+        font-style:italic;
+        }
+        .result a:hover{
+        color: #0E1C36;
+        }
+            .heart-btn {
+        display: inline-block;
+        width: 50px;
+        height: 45px;
+        background-color: pink;
+        position: relative;
+        margin: 20px;
+        transform: rotate(-45deg);
+        cursor: pointer;
+        border: none;  /* Remove default button styling */
+        }
+        .heart-btn:before,
+        .heart-btn:after {
+            content: "";
+            background-color: pink;
+            border-radius: 50%;
+            width: 50px;
+            height: 45px;
+            position: absolute;
+            top: 0;
+        }
+        .heart-btn:before {
+            left: 25px;
+        }
+        .heart-btn:after {
+            top: -25px;
+            left: 0;
+        }
+        .heart-btn:hover,
+        .heart-btn:before:hover,
+        .heart-btn:after:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+      {% include 'nav.html' %}
+    <main>
+        <h2 class = "result">
+            {% if recipes %}
+                {% for recipe in recipes %}
+                    Recipe name: {{ recipe.name }} <br>
+                    Ingredients: {{ recipe.ingredients|join:", " }} <br>
+                    Amounts:
+                    <ul>
+                        {% for amount in recipe.amounts %}
+                            <li>{{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ recipe.link }}">Full Recipe Details</a> <br>
+                    <form action="{% url 'saveRecipeForNow' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="recipe_name" value="{{ recipe.name }}">
+                        <input type="hidden" name="recipe_ingredients" value="{{ recipe.ingredients|join:', ' }}">
+                        <input type="hidden" name="recipe_link" value="{{ recipe.link }}">
+                        <input type="hidden" name="recipe_amounts" value="{{ recipe.amounts|join:', ' }}">
+                        <button type="submit" class="heart-btn"> </button>
+                    </form>
+                {% endfor %}
+            {% else %}
+                <p>{{ message }}</p>
+            {% endif %}
+        </h2>
+    </main>
+</body>
+</html>

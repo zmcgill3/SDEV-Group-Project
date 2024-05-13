@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<style>
+    .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Using viewport height to make it take the full available height */
+  margin: 0;
+    }
+
+    .flex-container {
+        display: flex;
+        align-items: center;
+        /* Vertical alignment */
+        justify-content: center;
+        /* Horizontal alignment */
+        width: 450px;
+        /* Adjust the width as needed */
+        height: 300px;
+        /* Adjust the height as needed */
+        background-color: #F9FBF2;
+        /* Background color of the flex container */
+        /* border styling below */
+        border-radius: 1.5em;
+        border-style: solid;
+        border-color: #0E1C36;
+        border-width: 0.12em;
+        flex-direction: column;
+        /* font styling below */
+        font-family: marigny, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #0E1C36;
+    }
+
+    .flex-item {
+        align-items: center;
+        /* Vertical alignment */
+        justify-content: center;
+        /* Horizontal alignment */
+        margin-bottom: 10px;
+    }
+
+    .flex-item label {
+        font-weight: bold;
+        margin: 0.6em 0 0.1em 0;
+    }
+
+    .flex-container a{
+        margin: 1em;
+        color:#0E1C36;
+    }
+
+    .flex-container a:hover {
+        color: #AFCBFF;
+
+    }
+
+    .flex-container button{
+        /* button color and position styling below */
+        background-color: #d7f9ff;
+        color: #0E1C36;
+        padding: 0 1em 0 1em;
+        margin-left: 1.5em;
+        margin-top: 1em;
+        /* border styling below */
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+        border-radius: 0.8em;
+        cursor: pointer;
+        /* font styling below */
+        font-size: 1.5em;
+        font-weight: bold;
+        text-decoration: none;
+        font-family: urbana, sans-serif;
+        font-style: normal;
+        font-weight: 300;
+    }
+</style>
+
+<head>
+    {% include 'head.html' %}
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <div class="flex-container">
+        <form method="post" action="{% url 'signUp' %}">
+        {% csrf_token %}
+        <div class="flex-item">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" required>
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <div style="color: red;">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="flex-item">
+            <label for="id_password1">Password</label>
+            <input type="password" name="password1" id="id_password1" required>
+            {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                    <div style="color: red;">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="flex-item">
+            <label for="id_password2">Confirm Password</label>
+            <input type="password" name="password2" id="id_password2" required>
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                    <div style="color: red;">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>

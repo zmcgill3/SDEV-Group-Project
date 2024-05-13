@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ingredient").on("input", function () {
+                var query = $(this).val().toLowerCase();
+                var uniqueIngredientNames = {{ uniqueIngredientNames| safe}};
+                var suggestions = [];
+                for (var i = 0; i < uniqueIngredientNames.length; i++) {
+                    if (uniqueIngredientNames[i].toLowerCase().startsWith(query)) {
+                        suggestions.push(uniqueIngredientNames[i]);
+                        if (suggestions.length >= 50) {
+                            break;
+                        }
+                    }
+                }
+                suggestions.sort(function (a, b) {
+                    return a.length - b.length;
+            });
+            displaySuggestions(suggestions);
+        });
+
+        function displaySuggestions(suggestions) {
+            var ul = $("ul.autocomplete");
+            ul.empty();
+            if (suggestions.length >= 15) {
+                suggestions = suggestions.slice(0, 15);
+            }
+            for (var i = 0; i < suggestions.length; i++) {
+                ul.append("<li>" + suggestions[i] + "</li>");
+            }
+        }
+
+        $(document).on("click", "ul.autocomplete li", function () {
+            var selectedText = $(this).text();
+            $("#ingredient").val(selectedText);
+            $("ul.autocomplete").empty();
+        });
+        });
+
+</script>
+<style>
+    .pantry-wrapper {
+        display: flex;
+        row-gap: 30px;
+        column-gap: 30px;
+        flex-wrap: wrap;
+
+        /*style text*/
+        font-size: 15px;
+        font-family: "marigny", "sans-serif";
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    h1 {
+        font-family: sauna-new, sans-serif;
+        font-style: normal;
+        font-weight: 900;
+        font-size: 4em;
+        margin-top: 0.4em;
+    }
+
+    .ingredient-container {
+        background-color: #FFF;
+        border-radius: 0.5em;
+        padding:5px 10px;
+
+    }
+
+    .pantry-wrapper p1 {
+        text-decoration: none;
+    }
+
+    .pantry-wrapper button {
+        background:none;
+        border: none;
+        cursor:pointer;
+    }
+    ul.autocomplete {
+        list-style-type: none;
+        padding: 0;
+    }
+    ul.autocomplete li {
+        cursor: pointer;
+    }
+</style>
+<body>
+    {% include 'nav.html' %}
+
+    <h1>Pantry</h1>
+
+    <div class="add-ingredient-wrapper">
+        <form id="ingredientForm" method="POST">
+            {% csrf_token %}
+            <div class="input-button-wrapper">
+                <input class="input-box"type="text" name="ingredient" id="ingredient" placeholder="Enter ingredient..." value="{{ query }}">
+                <button type="submit" name="addIngredient" class="btn">Add Ingredient</button>
+            </div>
+            <ul class="autocomplete ingredients"></ul>
+        </form>
+
+<!-- Placeholder text -->
+    <section class="pantry-wrapper">
+        {% for ingredient in ingredients %}
+        <div class="ingredient-container">
+            <button>&#10006;</button>
+            <p1>{{ ingredient }}</p1>
+        </div>
+        {% endfor %}
+    </section>
+
+</body>
+</html>
+

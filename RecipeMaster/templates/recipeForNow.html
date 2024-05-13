@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'head.html' %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ingredient").on("input", function () {
+                var query = $(this).val().toLowerCase();
+                var uniqueIngredientNames = {{ uniqueIngredientNames| safe}};
+                var suggestions = [];
+                for (var i = 0; i < uniqueIngredientNames.length; i++) {
+                    if (uniqueIngredientNames[i].toLowerCase().startsWith(query)) {
+                        suggestions.push(uniqueIngredientNames[i]);
+                        if (suggestions.length >= 50) {
+                            break;
+                        }
+                    }
+                }
+                suggestions.sort(function (a, b) {
+                    return a.length - b.length;
+            });
+            displaySuggestions(suggestions);
+        });
+
+        function displaySuggestions(suggestions) {
+            var ul = $("ul.autocomplete");
+            ul.empty();
+            if (suggestions.length >= 15) {
+                suggestions = suggestions.slice(0, 15);
+            }
+            for (var i = 0; i < suggestions.length; i++) {
+                ul.append("<li>" + suggestions[i] + "</li>");
+            }
+        }
+
+        $(document).on("click", "ul.autocomplete li", function () {
+            var selectedText = $(this).text();
+            $("#ingredient").val(selectedText);
+            $("ul.autocomplete").empty();
+        });
+        });
+
+    </script>
+    <style>
+        ul.autocomplete {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul.autocomplete li {
+            cursor: pointer;
+        }
+
+        h1 {
+            font-family: sauna-new, sans-serif;
+            font-style: normal;
+            font-weight: 900;
+            font-size: 4em;
+            margin-top: 0.4em;
+        }
+        .error-message {
+        color: red;
+        margin: 10px 0;
+        font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <h1>Last Minute Recipes</h1>
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+ <div class="add-ingredient-wrapper">
+     <form id="ingredientForm" method="POST">
+        {% csrf_token %}
+        <div class="input-button-wrapper">
+            <input class="input-box" type="text" name="ingredient" id="ingredient" placeholder="Enter ingredient..." value="{{ query }}">
+            <button type="submit" name="addIngredient" class="btn">Add Ingredient</button>
+        </div>
+        <ul class="autocomplete ingredients"></ul>
+    </form>
+ </div>
+
+    <div  class="ingredients">
+        <h2>Ingredients List:</h2>
+
+    <ul>
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+
+
+    <div class="btn-wrapper">
+        <form method="POST" action="{% url 'submitIngredients' %}">
+        {% csrf_token %}
+        <button type="submit" name="submit_ingredients" class="btn">Submit Ingredients</button>
+        </form>
+
+        <form method="POST" action="{% url 'clearIngredients' %}">
+            {% csrf_token %}
+            <button type="submit" name="clear_ingredients" class="btn">Clear Ingredients</button>
+        </form>
+
+        <form method = "POST" action ="{% url 'importForNow' %}">
+            {% csrf_token %}
+        <button type = "submit" name = "import_pantry" class = "btn">Import From Pantry</button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

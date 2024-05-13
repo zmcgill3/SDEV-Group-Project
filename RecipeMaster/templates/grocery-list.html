@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="static/grocery-list-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ingredient").on("input", function () {
+                var query = $(this).val().toLowerCase();
+                var uniqueIngredientNames = {{ uniqueIngredientNames| safe}};
+                var suggestions = [];
+                for (var i = 0; i < uniqueIngredientNames.length; i++) {
+                    if (uniqueIngredientNames[i].toLowerCase().startsWith(query)) {
+                        suggestions.push(uniqueIngredientNames[i]);
+                        if (suggestions.length >= 50) {
+                            break;
+                        }
+                    }
+                }
+                suggestions.sort(function (a, b) {
+                    return a.length - b.length;
+            });
+            displaySuggestions(suggestions);
+        });
+
+        function displaySuggestions(suggestions) {
+            var ul = $("ul.autocomplete");
+            ul.empty();
+            if (suggestions.length >= 15) {
+                suggestions = suggestions.slice(0, 15);
+            }
+            for (var i = 0; i < suggestions.length; i++) {
+                ul.append("<li>" + suggestions[i] + "</li>");
+            }
+        }
+
+        $(document).on("click", "ul.autocomplete li", function () {
+            var selectedText = $(this).text();
+            $("#ingredient").val(selectedText);
+            $("ul.autocomplete").empty();
+        });
+        });
+
+    </script>
+    <style>
+        ul.autocomplete {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul.autocomplete li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+    <body>
+        {% include 'nav.html' %}
+        <main id="page-layout">
+            <section id="ingredient-search">
+                <form id="ingredientForm" method="POST">
+                    {% csrf_token %}
+                        <input type="text" name="ingredient" id="ingredient" placeholder="Enter ingredient..." value="{{ query }}">
+                        <ul class="autocomplete"></ul>
+                    <input type="submit" id="addBtn" class = "btn" value="Add">
+                </form>
+            </section>
+
+            <section id="grocery-list">
+                <h1>Grocery List</h1>
+                <div id="ingredient-list-container">
+                    <ul class = "ingredient-list">
+                        {% for ingredient in ingredients %}
+                            <li class = "grocery-ingredient" name = "grocery-ingredient" value = "grocery-ingredient">{{ingredient}}</li>
+                        {% endfor %}
+                    </ul>
+                    <form method="POST" action="{% url 'groceryResults' %}">
+                        {% csrf_token %}
+                        <div id="saveBtn-container">
+                            <input type="submit" id="saveBtn" class="btn" value="Generate Meals Using These Ingredients">
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="recipe-list-container">
+                <h1>Meal Options:</h1>
+                <div id="recipe-list">
+                    <!-- Placeholder recipes for display purposes, replace with appropriate Django implementation -->
+                    {% for meal in meals %}
+                        <div class="recipe">
+                            <div class = "recipe-details">
+                                <h2 class = "recipe-name">{{ meal.name }}</h2>
+                                <p>Ingredients: {{ meal.ingredients|join:', ' }}</p>
+                                <p><a href="{{ recipe.link }}">Full Recipe Details</a></p>
+                            </div>
+                            <input type="checkbox" id="favorite1" class="favorite-checkbox">
+                            <label for="favorite1" class="favorite-label"></label>
+                        </div>
+                        <hr class = "recipe-spacer"/> <!-- Insert spacer for desired aesthetic -->
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+        <script>
+
+        </script>
+    </body>
+</html>

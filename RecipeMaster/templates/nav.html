@@ -1,0 +1,56 @@
+{% load static %}
+<nav>
+    <div class="nav-wrapper">
+        <a href="/home" class="brand-logo">Recipe Master</a>
+        <ul id="nav" class="">
+            <li><a href="/grocery-list">Grocery Assistant</a></li>
+            <li><a href="/savedRecipes">Your Recipes</a></li>
+            <li><a href="/pantry">Pantry</a></li>
+        </ul>
+        <div class="dropdown">
+            <img src="{% static 'profile.png' %}" class="profile-img" onclick="toggleDropdown()">
+            <div id="dropdown-menu" class="dropdown-menu">
+                {% if user.is_authenticated %}
+                    <a href="/logout">Log out</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Log in</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-menu a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
+    </div>
+</nav>
+

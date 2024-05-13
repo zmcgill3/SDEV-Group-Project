@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Can overide to any title, overide syntax is shown in login template -->
+    {% block extra_head %}{% endblock %} <!-- Probably won't need but added it just in case-->
+</head>
+
+<body>
+    <header>
+        <!-- Site-wide header content, like navigation links -->
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <!-- Site-wide footer content -->
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <style>
+        #carousel-container {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .container {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <main id = "carousel-container">
+    <!-- Image carousel-->
+    <section id= "image-carousel" class="carousel" aria-label="Recipe Images">
+        <div class="carousel-slider">
+            <ul class="carousel-list">
+                <li class="carousel-slide">
+                    <img src="{% static 'img1.jpeg' %}" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="{% static 'img2.jpg' %}" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="{% static 'img3.jpg' %}" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="{% static 'img4.jpg' %}" alt="">
+                </li>
+                <li class="carousel-slide">
+                    <img src="{% static 'img5.jpg' %}" alt="">
+                </li>
+            </ul>
+        </div>
+        <a class="prev" onclick="showSlides(-1)">&#10094;</a><!--&#10140; &#10094; -->
+        <a class="next" onclick="showSlides(1)">&#10095;</a>
+
+        <!-- <div class="carousel-nav-buttons">
+            <span class="dot active" onclick="changeSlide(0)"></span>
+            <span class="dot" onclick="changeSlide(1)"></span>
+            <span class="dot" onclick="changeSlide(2)"></span>
+            <span class="dot" onclick="changeSlide(3)"></span>
+            <span class="dot" onclick="changeSlide(4)"></span>
+        </div>  -->
+    </section>
+    </main>
+
+    <!-- Boxes-->
+    <div class="container ">
+        <form action="recipefornow" method="GET">
+            <div class="boxes recipesNowBox toolTip">
+                <button type="submit">Last Minute Dinner Ideas</button>
+                <span class="toolTipText recipesNowText">Find a recipe with the ingredients you have on hand!</span>
+            </div>
+        </form>
+
+        <form action="recipeforlater" method="GET">
+            <div class="boxes recipesLaterBox toolTip">
+                <button type="submit">Creative Recipes for Later</button>
+                <span class="toolTipText recipesLaterText">Find a recipe that will impress and instantly get list of ingredients!</span>
+            </div>
+        </form>
+
+        <form action="grocery-list" method="GET">
+            <div class="boxes groceryAssistBox toolTip">
+                <button type="submit">Grocery Assistant</button>
+                <span class="toolTipText groceryAssistText">Create a grocery list and be recommended receipes that include the ingredients you're buying!</span>
+            </div>
+        </form>
+    </div>
+    <script src="{% static 'initial-script.js' %}"></script>
+</body>
+
+</html>
